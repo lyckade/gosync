@@ -1,6 +1,10 @@
 package sync
 
-import "testing"
+import (
+	"fmt"
+	"path/filepath"
+	"testing"
+)
 
 type fsTester struct {
 	copysrc string
@@ -59,4 +63,17 @@ func TestSync(t *testing.T) {
 		}
 
 	}
+}
+
+func ExampleMakeDistPath() {
+	distPath, _ := MakeDistPath(
+		"/a/b/c/d/file.txt",
+		"/a/b/",
+		"/ext/f/")
+	//To ensure that the expected value is the same on
+	//different systems.
+	distPath = filepath.ToSlash(distPath)
+
+	fmt.Println(distPath)
+	//Output: /ext/f/c/d/file.txt
 }

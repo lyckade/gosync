@@ -1,7 +1,11 @@
 //Package sync provides a sync logic between two folder trees
 package sync
 
-import "errors"
+import (
+	"errors"
+	"path"
+	"path/filepath"
+)
 
 //ErrFilesHaveSameAge is returned by functions which are comparing the last change
 //time. If both have the same time that error have to be returned.
@@ -42,4 +46,11 @@ func Sync(fs Filesyncer, filePath1, filePath2 string) error {
 	err = fs.Copy(src, dst)
 
 	return err
+}
+
+//MakeDistPath takes the relative path to a root folder and adds
+//that to a dist folder (the target of the sync).
+func MakeDistPath(fpath, rootFolder, distFolder string) (string, error) {
+	relPath, err := filepath.Rel(rootFolder, fpath)
+	return path.Join(distFolder, relPath), err
 }
