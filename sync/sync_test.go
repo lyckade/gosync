@@ -27,13 +27,6 @@ func (fs *fsTester) GetNewerFile(f1, f2 string) (string, error) {
 	}
 }
 
-func (fs *fsTester) SkipFile(s string) bool {
-	if s == "TestSkip" {
-		return true
-	}
-	return false
-}
-
 var tests = []struct {
 	file1     string
 	file2     string
@@ -44,7 +37,6 @@ var tests = []struct {
 	{"Test1", "Test2", "Test1", "Test2", nil},
 	{"Test2", "Test1", "Test1", "Test2", nil},
 	{"Test2", "Test3", "", "", ErrFilesHaveSameAge},
-	{"TestSkip", "Test4", "", "", nil},
 }
 
 func TestSync(t *testing.T) {
