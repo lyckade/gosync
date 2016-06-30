@@ -36,8 +36,8 @@ func main() {
 	if len(os.Args) < 3 {
 		fmt.Print(ErrNotEnoughArguments)
 	}
-	syncFolder := os.Args[1]
-	distFolder := os.Args[2]
+	syncFolder, _ := filepath.Abs(os.Args[1])
+	distFolder, _ := filepath.Abs(os.Args[2])
 	logger.Printf("Sync started for %s\n", syncFolder)
 	filepath.Walk(syncFolder, func(fpath string, info os.FileInfo, err error) error {
 		if info.IsDir() {

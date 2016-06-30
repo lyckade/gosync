@@ -17,13 +17,13 @@ func (fs *Osfsyncer) Copy(src, dst string) error {
 		return err
 	}
 	fdst, err := os.Create(dst)
-	defer fdst.Close()
+	//defer fdst.Close()
 	if err != nil {
 		return err
 	}
 
 	fsrc, err := os.Open(src)
-	defer fsrc.Close()
+	//defer fsrc.Close()
 	if err != nil {
 		return err
 	}
@@ -32,6 +32,8 @@ func (fs *Osfsyncer) Copy(src, dst string) error {
 	if err != nil {
 		return err
 	}
+	fdst.Close()
+	fsrc.Close()
 	srcInfo, err := os.Stat(src)
 	if err != nil {
 		return err
@@ -50,10 +52,11 @@ func (fs *Osfsyncer) GetNewerFile(file1, file2 string) (string, error) {
 	}
 	f2Info, err := os.Stat(file2)
 	if err != nil {
-		return "", err
+		return file1, nil
 	}
 	if f2Info.ModTime().After(f1Info.ModTime()) {
 		return file2, nil
 	}
+
 	return file1, nil
 }
