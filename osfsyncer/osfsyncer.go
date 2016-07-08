@@ -38,7 +38,9 @@ func (fs *Osfsyncer) Copy(src, dst string) error {
 	if err != nil {
 		return err
 	}
-	err = os.Chtimes(dst, srcInfo.ModTime(), srcInfo.ModTime())
+	//fmt.Printf("%#v\n%#v\n", dst, srcInfo.ModTime())
+	mTime := srcInfo.ModTime()
+	err = os.Chtimes(dst, mTime, mTime)
 	if err != nil {
 		return err
 	}

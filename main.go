@@ -13,7 +13,7 @@ import (
 )
 
 // Version defines the version number of the app
-const Version = "0.7.0"
+const Version = "0.7.1"
 
 var ErrNotEnoughArguments = errors.New("Not enough arguments!")
 
